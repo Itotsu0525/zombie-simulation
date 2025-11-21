@@ -8,6 +8,9 @@ import java.util.Map;
 //this class stores and holds user input as well as
 public class ZombieGUI {
 
+    //I added this for losting the error from line 123.
+    private static Timer simulationTimer;
+
     public static Map<String, Object> showSettingsDialog(Frame parent, String title,
                                                          String[] names, Class<?>[] types,
                                                          Object[] initialValues) {
@@ -116,7 +119,10 @@ public class ZombieGUI {
 
         gridFrame.add(gridPanel, BorderLayout.CENTER);
         //updates simulation every 500ms (change if needed)
-        Timer timer = new Timer(500, e -> {
+
+        //I'm wondering if it may be error because the compiler cannot guarantee that timer remains unchanged if there is a lot of code in between (1) and (2)
+        //I changed like that, and I added "private static Timer simulationTimer;" in line 12.
+        simulationTimer = new Timer(500, e -> { //(1)
             day[0]++;                 // increment day
             dayLabel.setText("Day: " + day[0]);
 
@@ -147,8 +153,8 @@ public class ZombieGUI {
         JButton quitButton = new JButton("Quit");
 
         // NOTE: ---------------ACTION LISTENERS(buttons)-------------
-        startButton.addActionListener(e -> timer.start());
-        pauseButton.addActionListener(e -> timer.stop());
+        startButton.addActionListener(e -> simulationTimer.start());　　　//(2)
+        pauseButton.addActionListener(e -> simulationTimer.stop());
         quitButton.addActionListener(e -> gridFrame.dispose());
 
         JPanel controlPanel = new JPanel(new FlowLayout());

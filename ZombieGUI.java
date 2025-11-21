@@ -189,7 +189,7 @@ public class ZombieGUI {
         SwingUtilities.invokeLater(() -> {
             String[] names = {"Enable ChosenOne", "Map Width", "Map Height", "Infection Rate", "Heal Rate", "Number of Zombies", "Number of Medic"};
             Class<?>[] types = {Boolean.TYPE, Integer.TYPE,Integer.TYPE, Integer.TYPE,Integer.TYPE, Integer.TYPE, Integer.TYPE};
-            Object[] defaults = {false, 50, 50, 0, "Player1"};
+            Object[] defaults = {false, 50, 50, 25, 15,1,5};
 
             Map<String, Object> settings = showSettingsDialog(null, "Simulation Settings",
                     names, types, defaults);

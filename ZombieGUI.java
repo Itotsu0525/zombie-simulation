@@ -139,6 +139,8 @@ public class ZombieGUI {
         legendPanel.add(createLegendItem(Color.RED, "Zombie"));
         legendPanel.add(createLegendItem(Color.GREEN, "Human"));
         legendPanel.add(createLegendItem(Color.YELLOW, "Medic"));
+        // NOTE: need to create another legendItem for ChosenOne 
+        // if (chosenOne.button is true/on) create legend item
 
         gridFrame.add(legendPanel, BorderLayout.EAST);
 
@@ -185,11 +187,11 @@ public class ZombieGUI {
     // main method creates values and invokes swing utilites
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            String[] names = {"Enable Sound", "Map Width", "Map Height", "Volume", "Player Name"};
-            Class<?>[] types = {Boolean.TYPE, Integer.TYPE,Integer.TYPE, Integer.TYPE, String.class};
+            String[] names = {"Enable ChosenOne", "Map Width", "Map Height", "Infection Rate", "Heal Rate", "Number of Zombies", "Number of Medic"};
+            Class<?>[] types = {Boolean.TYPE, Integer.TYPE,Integer.TYPE, Integer.TYPE,Integer.TYPE, Integer.TYPE, Integer.TYPE};
             Object[] defaults = {false, 50, 50, 0, "Player1"};
 
-            Map<String, Object> settings = showSettingsDialog(null, "Game Settings",
+            Map<String, Object> settings = showSettingsDialog(null, "Simulation Settings",
                     names, types, defaults);
 
             if (settings != null) {

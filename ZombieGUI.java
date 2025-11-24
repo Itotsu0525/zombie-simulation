@@ -141,6 +141,11 @@ public class ZombieGUI {
         legendPanel.add(createLegendItem(Color.YELLOW, "Medic"));
         // NOTE: need to create another legendItem for ChosenOne 
         // if (chosenOne.button is true/on) create legend item
+        //I created a new code for ChosenOne, Please check it.
+        boolean chosenOneEnabled = (boolean) settings.getOrDefault("Enable ChosenOne", false);
+        if (chosenOneEnabled) {
+            legendPanel.add(createLegendItem(Color.BLUE, "Chosen One"));
+        }
 
         gridFrame.add(legendPanel, BorderLayout.EAST);
 
@@ -155,9 +160,18 @@ public class ZombieGUI {
         JButton quitButton = new JButton("Quit");
 
         // NOTE: ---------------ACTION LISTENERS(buttons)-------------
-        startButton.addActionListener(e -> simulationTimer.start());　　　//(2)
+        startButton.addActionListener(e -> simulationTimer.start()); //(2)
         pauseButton.addActionListener(e -> simulationTimer.stop());
-        quitButton.addActionListener(e -> gridFrame.dispose());
+
+        // There is an issue. Even though the window is closed with gridFrame.dispose(),
+        // the Timer keeps running in the background, which can lead to a memory leak.
+        quitButton.addActionListener(e -> {
+            if (simulationTimer != null) {
+                simulationTimer.stop();
+            }
+            gridFrame.dispose();
+        });
+        
 
         JPanel controlPanel = new JPanel(new FlowLayout());
         controlPanel.add(startButton);
